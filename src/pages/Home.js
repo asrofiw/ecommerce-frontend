@@ -5,7 +5,8 @@ import {} from 'reactstrap'
 import NavBar from '../component/NavBar'
 import ItemUpdated from '../component/ItemUpdated'
 import Item from '../component/Item'
-import Slide from '../component/Slider'
+import Slider from '../component/Slider'
+import Category from '../component/Category'
 
 class Home extends React.Component{
   constructor(props){
@@ -24,7 +25,10 @@ class Home extends React.Component{
     return(
       <React.Fragment>
         <NavBar />
-        <Slide />
+        <Slider />
+        <div className="mb-5">
+          <Category />
+        </div>
         <div className="mb-5">
           <ItemUpdated />
         </div>

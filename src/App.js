@@ -6,6 +6,7 @@ import ItemProduct from './pages/ItemProduct'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import Register from './pages/Register'
+import QueryParamsExample from './pages/test'
 
 class App extends React.Component{
   render(){
@@ -16,6 +17,7 @@ class App extends React.Component{
           <Route path="/admin" component={ItemProduct}  />
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
+          <Route path="/test" component={QueryParamsExample}  />
         </Switch>
       </BrowserRouter>
     )

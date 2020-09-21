@@ -1,54 +1,54 @@
-import React from 'react';
-import { Container,
-} from 'reactstrap';
-import 'slick-carousel/slick/slick.css'
-import 'slick-carousel/slick/slick-theme.css'
-import Slider from "react-slick";
+import React from 'react'
+import Carousel from 'react-elastic-carousel'
+import { Container } from 'reactstrap'
 
-// Importing image
-// import slide1 from '../assets/images/slide-2.jpg'
-// import slide2 from '../assets/images/slide-3.jpg'
+import slide1 from '../assets/images/slide-2.jpg'
+import slide2 from '../assets/images/slide-3.jpg'
 
-class Slide extends React.Component{
+class Slider extends React.Component{
+
   render(){
-    const settings = {
-      className: "center",
-      centerMode: true,
-      infinite: true,
-      centerPadding: "60px",
-      slidesToShow: 3,
-      speed: 500
-    };
+
+    const breakpoints = [
+      {width: 1, itemsToShow: 1},
+      {width: 360, itemsToShow: 2},
+      {width: 720, itemsToShow: 3},
+      {width: 1200, itemsToShow: 4},
+    ]
 
     return(
       <React.Fragment>
         <Container>
-          <div>
-            <Slider {...settings}>
-              <div>
-                <h3>1</h3>
-              </div>
-              <div>
-                <h3>2</h3>
-              </div>
-              <div>
-                <h3>3</h3>
-              </div>
-              <div>
-                <h3>4</h3>
-              </div>
-              <div>
-                <h3>5</h3>
-              </div>
-              <div>
-                <h3>6</h3>
-              </div>
-            </Slider>
-          </div>
+          <Carousel className="carousel" breakPoints={breakpoints}>
+            <div className="car-item">
+              <img className="car-item position-relative" src={slide1} alt="Slide"></img>
+              <span className="position-absolute font-weight-bold">Trends 2020</span>
+            </div>
+            <div className="car-item">
+              <img className="car-item position-relative" src={slide2} alt="Slide"></img>
+              <span className="position-absolute font-weight-bold">Black Edition</span>
+            </div>
+            <div className="car-item">
+              <img className="car-item position-relative" src={slide1} alt="Slide"></img>
+              <span className="position-absolute font-weight-bold">Trends 2020</span>
+            </div>
+            <div className="car-item">
+              <img className="car-item position-relative" src={slide2} alt="Slide"></img>
+              <span className="position-absolute font-weight-bold">Black Edition</span>
+            </div>
+            <div className="car-item">
+              <img className="car-item position-relative" src={slide1} alt="Slide"></img>
+              <span className="position-absolute font-weight-bold">Trends 2020</span>
+            </div>
+            <div className="car-item">
+              <img className="car-item position-relative" src={slide2} alt="Slide"></img>
+              <span className="position-absolute font-weight-bold">Black Edition</span>
+            </div>
+          </Carousel>
         </Container>
       </React.Fragment>
     )
   }
 }
 
-export default Slide;
+export default Slider

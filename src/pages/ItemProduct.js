@@ -3,7 +3,8 @@ import qs from 'querystring'
 import {default as axios} from 'axios'
 import {Container, Button, Row, Col,
   Form, FormGroup, Label, Input,
-  Modal, ModalBody, ModalFooter, ModalHeader
+  Modal, ModalBody, ModalFooter, ModalHeader,
+  InputGroup, InputGroupAddon
 } from 'reactstrap'
 
 // Importing Component
@@ -150,19 +151,23 @@ class ItemProduct extends React.Component{
       <React.Fragment>
         <NavBar />
         <Container>
-          <h2 className="font-weight-bold">List of Items</h2>
-          <Row md={2} xs={1}>
+          <h2 className="font-weight-bold mb-3">List of Items</h2>
+          <Row md={2} xs={1} className="mx-3">
             <Col>
-              <Form>
-                <Input type="search" name="search" onChange={this.changeInput} value={this.state.search} placeholder="Search"></Input>
-                <Input type="submit" name="submit" onClick={this.searchItem} ></Input>  
+              <Form className="mb-3">
+              <InputGroup>
+                <Input type="search" name="search" onChange={this.changeInput} value={this.state.search} placeholder="Search" />
+                <InputGroupAddon addonType="prepend"><Button color="primary" className="bg-color" type="submit" name="submit" onClick={this.searchItem} >Search</Button></InputGroupAddon>
+              </InputGroup>  
               </Form>
             </Col>
             <Col>
-              <Form>
-                <Input type="search" name="sortBy" onChange={this.changeInput} value={this.state.sortBy} placeholder="Sort by"></Input>
-                <Input type="search" name="sort" onChange={this.changeInput} value={this.state.sort} placeholder="Sort type"></Input>
-                <Input type="submit" name="sort" onClick={this.sortItem} ></Input>
+              <Form className="mb-5">
+              <InputGroup>
+                <Input type="search" name="sortBy" onChange={this.changeInput} value={this.state.sortBy} placeholder="Sort by" />
+                <Input type="search" name="sort" onChange={this.changeInput} value={this.state.sort} placeholder="Sort type" />
+                <InputGroupAddon addonType="prepend"><Button color="primary" className="bg-color" type="submit" name="submit" onClick={this.sortItem} >Sort</Button></InputGroupAddon>
+              </InputGroup>
               </Form>
             </Col>
           </Row>

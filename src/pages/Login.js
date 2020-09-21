@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { Form, Input, Button, Container,
   Row, Col
 } from 'reactstrap'
@@ -67,8 +67,11 @@ class Login extends React.Component{
                     </div>
                   </Col>
                   <div>
-                  <Button color="primary" className="bg-color form-input rounded-pill" type="submit" onClick={this.loginClick}>
-                    <Link to="/"></Link>Login</Button>
+                    <Link to="/">
+                      <Button color="primary" className="bg-color form-input rounded-pill" type="submit" onClick={this.loginClick}>
+                        Login
+                      </Button>
+                    </Link>
                   </div>
                 </Form>
               </Row>
