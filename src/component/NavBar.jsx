@@ -1,43 +1,44 @@
-import React from 'react'
-import {Navbar, Container,
-  NavbarBrand, Collapse, NavbarToggler, 
-  Nav, NavItem, Input, Button
-} from 'reactstrap'
-import {Link} from 'react-router-dom'
+/* eslint-disable react/no-access-state-in-setstate */
+/* eslint-disable react/destructuring-assignment */
+import React from 'react';
+import {
+  Navbar, Container,
+  NavbarBrand, Collapse, NavbarToggler,
+  Nav, NavItem, Input, Button,
+} from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 // Importing images
-import logo from '../assets/images/logo-44px.svg'
-import search from '../assets/images/search.svg'
-import filter from '../assets/images/filter.svg'
-import cart from '../assets/images/cart.svg'
-import bell from '../assets/images/bell.svg'
-import mail from '../assets/images/mail.svg'
-import profile from '../assets/images/profile.jpg'
+import logo from '../assets/images/logo-44px.svg';
+import search from '../assets/images/search.svg';
+import filter from '../assets/images/filter.svg';
+import cart from '../assets/images/cart.svg';
+import bell from '../assets/images/bell.svg';
+import mail from '../assets/images/mail.svg';
+import profile from '../assets/images/profile.jpg';
 
-
-class NavBar extends React.Component{
-  constructor(props){
-    super(props)
+class NavBar extends React.Component {
+  constructor(props) {
+    super(props);
     this.state = {
-      navbarOpen: false
-    }
+      navbarOpen: false,
+    };
   }
 
-
-  render(){
-    return(
+  render() {
+    return (
       <Navbar color="light" light expand="md" className="sticky-top shadow py-3 mb-5">
         <Container>
           <NavbarBrand>
-            <Link to='/'>
-              <img src={logo} alt='Home' className="mr-3"/>
+            <Link to="/">
+              <img src={logo} alt="Home" className="mr-3" />
             </Link>
           </NavbarBrand>
-          <NavbarToggler className="border-0" onClick={()=> this.setState({navbarOpen: !this.state.navbarOpen})}/>
-          <Collapse navbar isOpen={this.state.navbarOpen} >
-            <Nav navbar >
+          <NavbarToggler className="border-0" onClick={() => this.setState({ navbarOpen: !this.state.navbarOpen })} />
+          <Collapse navbar isOpen={this.state.navbarOpen}>
+            <Nav navbar>
               <div>
-                <NavItem >
+                <NavItem>
                   <Input
                     type="search"
                     name="search"
@@ -48,37 +49,37 @@ class NavBar extends React.Component{
                 </NavItem>
                 <NavItem>
                   <Button className="bg-transparent border-0 p-0 btn-logo-search position-absolute">
-                  <img src={search} alt="search" ></img>
+                    <img src={search} alt="search" />
                   </Button>
                 </NavItem>
               </div>
-              
+
             </Nav>
             <Nav navbar className="ml-auto">
               <NavItem>
                 <Button className="bg-transparent border-0 p-0 mr-5">
-                    <img src={filter} alt="filter" ></img>
+                  <img src={filter} alt="filter" />
                 </Button>
               </NavItem>
               <NavItem>
                 <Button className="bg-transparent border-0 p-0 mr-5">
-                    <img src={cart} className="" alt="cart"></img>
+                  <img src={cart} className="" alt="cart" />
                 </Button>
               </NavItem>
               <NavItem>
                 <Button className="bg-transparent border-0 p-0 mr-5">
-                    <img src={bell} className="rounded-circle" alt="notifications"></img>
+                  <img src={bell} className="rounded-circle" alt="notifications" />
                 </Button>
               </NavItem>
               <NavItem>
                 <Button className="bg-transparent border-0 p-0 mr-5">
-                    <img src={mail} className="rounded-circle" alt="mail"></img>
+                  <img src={mail} className="rounded-circle" alt="mail" />
                 </Button>
               </NavItem>
               <NavItem>
                 <Link to="/admin">
                   <Button className="profile bg-transparent border-0 p-0 mr-3">
-                      <img src={profile} className="img-profile rounded-circle" alt="profile"></img>
+                    <img src={profile} className="img-profile rounded-circle" alt="profile" />
                   </Button>
                 </Link>
               </NavItem>
@@ -86,8 +87,8 @@ class NavBar extends React.Component{
           </Collapse>
         </Container>
       </Navbar>
-    )
+    );
   }
 }
 
-export default NavBar
+export default NavBar;

@@ -1,16 +1,24 @@
-import React from 'react'
-import { Container, Row, Col, Button,
-  Form, Input
-} from 'reactstrap'
-import {Link} from 'react-router-dom'
+import React from 'react';
+import {
+  Container, Row, Col, Button,
+  Form, Input,
+} from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 // Importing image
-import logo from '../assets/images/logo-44px.svg'
- 
+import logo from '../assets/images/logo-44px.svg';
+
 class Register extends React.Component {
-  render(){
-    return(
-      <React.Fragment>
+  
+  changeInput = (e) => {
+    this.setState({
+      [e.target.name]: e.target.value,
+    });
+  }
+  
+  render() {
+    return (
+      <>
         <Container>
           <Row className="vh-100 w-100 m-0 text-center align-items-center">
             <Col>
@@ -34,18 +42,22 @@ class Register extends React.Component {
                     <Input className="form-input mb-2" type="password" onChange={this.changeInput} name="password" placeholder="Password" />
                   </Col>
                   <div>
-                  <Button color="primary" className="bg-color form-input rounded-pill" type="submit" >
-                    <Link to="#"></Link>Register</Button>
+                    <Button color="primary" className="bg-color form-input rounded-pill" type="submit">
+                      Register
+                    </Button>
                   </div>
                 </Form>
               </Row>
-              <span>Already have an account? <Link to="/login" className="txt-color text-decoration-none">Login</Link></span>
+              <span>
+                Already have an account?
+                <Link to="/login" className="txt-color text-decoration-none">Login</Link>
+              </span>
             </Col>
           </Row>
         </Container>
-      </React.Fragment>
-    )
+      </>
+    );
   }
 }
 
-export default Register
+export default Register;

@@ -1,41 +1,53 @@
-import React from 'react'
-import {Form, FormGroup, Label, Input, Button} from 'reactstrap'
+/* eslint-disable linebreak-style */
+/* eslint-disable react/no-unused-state */
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable no-undef */
+import React from 'react';
+import {
+  Form, FormGroup, Label, Input, Button,
+} from 'reactstrap';
 
 class AddItem extends React.Component {
-  constructor(props){
-    super(props)
+  constructor(props) {
+    super(props);
     this.state = {
       data: [],
       name: '',
       price: '',
       description: '',
       categoryID: '3',
-      subCategoryID: '4'
-    }
+      subCategoryID: '4',
+    };
   }
 
-  formSubmit = async (e)=>{
-    e.preventDefault()
+  formSubmit = async (e) => {
+    e.preventDefault();
     await axios.post(`${process.env.REACT_APP_BACKEND_URL}items`, qs.stringify(
-      {name: this.state.name, price: this.state.price, description: this.state.description,
-      categoryID: this.state.categoryID, subCategoryID: this.state.subCategoryID}))
+      {
+        name: this.state.name,
+        price: this.state.price,
+        description: this.state.description,
+        categoryID: this.state.categoryID,
+        subCategoryID: this.state.subCategoryID,
+      },
+    ));
     this.setState({
       name: '',
       price: '',
       description: '',
       categoryID: '3',
-      subCategoryID: '4'
-    })
+      subCategoryID: '4',
+    });
   }
 
   changeInput = (e) => {
     this.setState({
-      [e.target.name]: e.target.value
-    })
+      [e.target.name]: e.target.value,
+    });
   }
-  
-  render(){
-    return(
+
+  render() {
+    return (
       <React.Fragment className="bg-secondary">
         <Form onSubmit={this.formSubmit} className="m-5 shadow p-5">
           <h3 className="mb-5">Add Item</h3>
@@ -72,17 +84,23 @@ class AddItem extends React.Component {
               <option value="7">Batik Wanita</option>
             </Input>
           </FormGroup>
-          <Button color="primary" className="bg-color">Submit</Button>&nbsp;
-          <Button color="primary" className="bg-color" onClick={()=>this.setState({
-            name: '',
-            price: '',
-            description: '',
-            categoryID: '3',
-            subCategoryID: '4',
-          })}>Clear</Button>
+          <Button color="primary" className="bg-color">Submit</Button> &nbsp;
+          <Button
+            color="primary"
+            className="bg-color"
+            onClick={() => this.setState({
+              name: '',
+              price: '',
+              description: '',
+              categoryID: '3',
+              subCategoryID: '4',
+            })}
+          >
+            Clear
+          </Button>
         </Form>
       </React.Fragment>
-    )
+    );
   }
 }
 

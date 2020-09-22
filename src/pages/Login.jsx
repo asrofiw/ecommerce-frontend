@@ -1,49 +1,34 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { Form, Input, Button, Container,
-  Row, Col
-} from 'reactstrap'
+/* eslint-disable linebreak-style */
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import React from 'react';
+import { Link } from 'react-router-dom';
+import {
+  Form, Input, Button, Container,
+  Row, Col,
+} from 'reactstrap';
 
 // Importing image
-import logo from '../assets/images/logo-44px.svg'
+import logo from '../assets/images/logo-44px.svg';
 
-class Login extends React.Component{
-  constructor(props){
-    super(props)
+class Login extends React.Component {
+  constructor(props) {
+    super(props);
     this.state = {
       email: '',
       password: '',
-      linkToHome: null
-    }
-  }
-
-  dataAdmin = {
-    email: 'admin@mail.com',
-    password: 'admin'
+    };
   }
 
   changeInput = (e) => {
     this.setState({
-      [e.target.name]: e.target.value
-    })
+      [e.target.name]: e.target.value,
+    });
   }
 
-  loginClick = () => {
-    if ( this.state.email === this.dataAdmin.email && this.state.password === this.dataAdmin.password){
-      return(
-        this.setState({
-          linkToHome: '/'
-        })
-      )
-    } else{
-      console.log("error")
-    }
-  }
-
-  render(){
-
-    return(
-      <React.Fragment>
+  render() {
+    return (
+      <>
         <Container>
           <Row className="vh-100 w-100 m-0 text-center align-items-center">
             <Col>
@@ -68,20 +53,23 @@ class Login extends React.Component{
                   </Col>
                   <div>
                     <Link to="/">
-                      <Button color="primary" className="bg-color form-input rounded-pill" type="submit" onClick={this.loginClick}>
+                      <Button color="primary" className="bg-color form-input rounded-pill" type="submit">
                         Login
                       </Button>
                     </Link>
                   </div>
                 </Form>
               </Row>
-              <span>Don't have an account?<Link to="/register" className="txt-color text-decoration-none">Register</Link></span>
+              <span>
+                Don&apos;t have an account?
+                <Link to="/register" className="txt-color text-decoration-none">Register</Link>
+              </span>
             </Col>
           </Row>
         </Container>
-      </React.Fragment>
-    )
+      </>
+    );
   }
 }
 
-export default Login
+export default Login;
