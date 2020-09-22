@@ -2,13 +2,17 @@ import React from 'react'
 import qs from 'querystring'
 import {default as axios} from 'axios'
 import {Container, Button, Row, Col,
-  Form, FormGroup, Label, Input,
+  Form, Input,
   Modal, ModalBody, ModalFooter, ModalHeader,
   InputGroup, InputGroupAddon
 } from 'reactstrap'
+import {Link} from 'react-router-dom'
 
 // Importing Component
 import NavBar from '../component/NavBar'
+
+// Importing Page
+import AddItem from '../pages/AddItem'
 
 class ItemProduct extends React.Component{
   constructor(props){
@@ -35,12 +39,12 @@ class ItemProduct extends React.Component{
   }
 
   getData = async () => {
-    const {data} = await axios.get('http://localhost:8080/items')
+    const {data} = await axios.get(`${process.env.REACT_APP_BACKEND_URL}items`)
     this.setState({data: data.dataResult, nextLink: data.pageInfo.nextLink, prevLink: data.pageInfo.prevLink})
   }
 
   getDetail = async (id)=>{
-    const {data} = await axios.get(`http://localhost:8080/items/${id}`)
+    const {data} = await axios.get(`${process.env.REACT_APP_BACKEND_URL}items/${id}`)
     this.setState({modalDetail: true, ...data.data[0]}, ()=>{
       console.log(data)
     })
@@ -68,25 +72,9 @@ class ItemProduct extends React.Component{
     }
   }
 
-  formSubmit = async (e)=>{
-    e.preventDefault()
-    await axios.post(`http://localhost:8080/items`, qs.stringify(
-      {name: this.state.name, price: this.state.price, description: this.state.description,
-      categoryID: this.state.categoryID, subCategoryID: this.state.subCategoryID}))
-    this.setState({
-      name: '',
-      price: '',
-      description: '',
-      categoryID: '3',
-      subCategoryID: '4'
-    }, async()=>{
-      await this.getData()
-    })
-  }
-
   editItem = async (e)=>{
     e.preventDefault()
-    await axios.put(`http://localhost:8080/items/${this.state.id}`, qs.stringify(
+    await axios.put(`${process.env.REACT_APP_BACKEND_URL}items/${this.state.id}`, qs.stringify(
       {name: this.state.name, price: this.state.price, description: this.state.description,
       categoryID: this.state.categoryID, subCategoryID: this.state.subCategoryID}))
     this.setState({
@@ -102,7 +90,7 @@ class ItemProduct extends React.Component{
   }
 
   deleteItem = async ()=>{
-    await axios.delete(`http://localhost:8080/items/${this.state.id}`)
+    await axios.delete(`${process.env.REACT_APP_BACKEND_URL}items/${this.state.id}`)
     this.setState({
       name: '',
       price: '',
@@ -118,13 +106,13 @@ class ItemProduct extends React.Component{
 
   searchItem = async (e) => {
     e.preventDefault()
-    const {data} = await axios.get(`http://localhost:8080/items?search=${this.state.search}`)
+    const {data} = await axios.get(`${process.env.REACT_APP_BACKEND_URL}items?search=${this.state.search}`)
     this.setState({data: data.dataResult, nextLink: data.pageInfo.nextLink, prevLink: data.pageInfo.prevLink})
   }
 
   sortItem = async (e) => {
     e.preventDefault()
-    const {data} = await axios.get(`http://localhost:8080/items?sort[${this.state.sortBy}]=${this.state.sort}`)
+    const {data} = await axios.get(`${process.env.REACT_APP_BACKEND_URL}items?sort[${this.state.sortBy}]=${this.state.sort}`)
     this.setState({data: data.dataResult, nextLink: data.pageInfo.nextLink, prevLink: data.pageInfo.prevLink})
   }
 
@@ -195,6 +183,9 @@ class ItemProduct extends React.Component{
               </Row>
               )
             })}
+            <Link to="/add-item">
+              <Button color="primary" className="bg-color rounded-pill">Add Item</Button>
+            </Link>
             <Row md={4} xs={4} className="container justify-content-between mx-0 my-4">
               <Button color="primary" className="text-center px-0 bg-color" onClick={this.prevPage} block>&laquo; Prev</Button>
               <Button onClick={this.getData} color="primary" className="text-center px-0 bg-color m-0">Refresh</Button>
@@ -243,51 +234,6 @@ class ItemProduct extends React.Component{
               <Button color="primary" className="bg-color" onClick={()=>this.setState({modalDelete: false})}>No</Button>
             </ModalFooter>
           </Modal>
-          
-          <Form onSubmit={this.formSubmit} className="my-5 shadow p-5">
-            <h3>Add Item</h3>
-            <FormGroup>
-              <Label for="name">Name</Label>
-              <Input type="text" name="name" id="name" onChange={this.changeInput} value={this.state.name} placeholder="Name" />
-            </FormGroup>
-            <FormGroup>
-              <Label for="price">Price</Label>
-              <Input type="number" name="price" id="price" onChange={this.changeInput} value={this.state.price} placeholder="Price" />
-            </FormGroup>
-            <FormGroup>
-              <Label for="description">Description</Label>
-              <Input type="textarea" name="description" rows="5" onChange={this.changeInput} value={this.state.description} id="description" />
-            </FormGroup>
-            <FormGroup>
-              <Label for="selectCategory">Category</Label>
-              <Input type="select" name="categoryID" onChange={this.changeInput} value={this.state.categoryID} id="selectCategory">
-                <option value="3">Fashion Pria</option>
-                <option value="2">Fashion Wanita</option>
-              </Input>
-            </FormGroup>
-            <FormGroup>
-              <Label for="selectSubCategory">Sub Category</Label>
-              <Input type="select" name="subCategoryID" onChange={this.changeInput} value={this.state.subCategoryID} id="selectSubCategory">
-                <option value="4">Atasan Pria</option>
-                <option value="5">Bawahan Pria</option>
-                <option value="6">Outwear Pria</option>
-                <option value="13">Batik Pria</option>
-                <option value="8">Atasan Wanita</option>
-                <option value="9">Bawahan Wanita</option>
-                <option value="10">Outwear Wanita</option>
-                <option value="11">Dress</option>
-                <option value="7">Batik Wanita</option>
-              </Input>
-            </FormGroup>
-            <Button color="primary" className="bg-color">Submit</Button>&nbsp;
-            <Button color="primary" className="bg-color" onClick={()=>this.setState({
-              name: '',
-              price: '',
-              description: '',
-              categoryID: '3',
-              subCategoryID: '4',
-            })}>Clear</Button>
-          </Form>
         </Container>
       </React.Fragment>
     )
