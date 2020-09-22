@@ -1,12 +1,10 @@
 import React from 'react'
-import {Container, Row, Col,
-  Card, CardImg, CardBody, CardTitle, CardText
+import {Container, Row, Col
 } from 'reactstrap'
 import {default as axios} from 'axios'
 
-// import Image
-import product from '../assets/images/product.jpg'
-import rating from '../assets/images/star-activated.svg'
+// Importing Component
+import CardItem from './CardItem'
 
 class Item extends React.Component {
   constructor(props){
@@ -39,22 +37,12 @@ class Item extends React.Component {
             {Object.keys(data).length && data.map(item => {
               return(
                 <Col md={3} xs={6}>
-                  <Card className="mt-3 border">
-                    <CardImg className="img mb-1" top src={product} alt={item.name} />
-                    <CardBody>
-                      <CardTitle className="title font-weight-bold mb-4">{item.name}</CardTitle>
-                      <CardText className="price font-weight-bold mb-1">Rp {item.price}</CardText>
-                      <CardText className="sub-category text-muted mb-1">{item.sub_category}</CardText>
-                      <CardText>
-                        <img src={rating} alt="rating" />
-                        <img src={rating} alt="rating" />
-                        <img src={rating} alt="rating" />
-                        <img src={rating} alt="rating" />
-                        <img class="mr-1" src={rating} alt="rating" />
-                        <span class="txt-2 text-muted">(10)</span>
-                      </CardText>
-                    </CardBody>
-                  </Card>
+                  <CardItem
+                    name={item.name}
+                    price={item.price}
+                    sub_category={item.sub_category}
+                  >
+                  </CardItem>
                 </Col>
               )
             })}

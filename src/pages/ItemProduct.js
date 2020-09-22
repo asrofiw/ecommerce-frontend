@@ -26,7 +26,7 @@ class ItemProduct extends React.Component{
       prevLink: '',
       search: '',
       sortBy: '',
-      sort: ''
+      sort: 'asc'
     }
   }
 
@@ -165,7 +165,10 @@ class ItemProduct extends React.Component{
               <Form className="mb-5">
               <InputGroup>
                 <Input type="search" name="sortBy" onChange={this.changeInput} value={this.state.sortBy} placeholder="Sort by" />
-                <Input type="search" name="sort" onChange={this.changeInput} value={this.state.sort} placeholder="Sort type" />
+                <Input type="select" name="sort" onChange={this.changeInput} value={this.state.sort} placeholder="Sort type">
+                  <option value="asc">Ascending</option>
+                  <option value="desc">Descending</option>
+                </Input>
                 <InputGroupAddon addonType="prepend"><Button color="primary" className="bg-color" type="submit" name="submit" onClick={this.sortItem} >Sort</Button></InputGroupAddon>
               </InputGroup>
               </Form>
@@ -192,8 +195,9 @@ class ItemProduct extends React.Component{
               </Row>
               )
             })}
-            <Row md={4} className="container justify-content-between mx-0 my-4">
+            <Row md={4} xs={4} className="container justify-content-between mx-0 my-4">
               <Button color="primary" className="text-center px-0 bg-color" onClick={this.prevPage} block>&laquo; Prev</Button>
+              <Button onClick={this.getData} color="primary" className="text-center px-0 bg-color m-0">Refresh</Button>
               <Button color="primary" className="text-center m-0 px-0 bg-color" onClick={this.nextPage} block>Next &raquo;</Button>
             </Row>
           </div>
