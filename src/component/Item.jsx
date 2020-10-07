@@ -1,31 +1,25 @@
 /* eslint-disable linebreak-style */
-/* eslint-disable import/no-named-default */
+/* eslint-disable react/prop-types */
+/* eslint-disable react/destructuring-assignment */
 import React from 'react';
 import { Container, Row, Col } from 'reactstrap';
-import { default as axios } from 'axios';
+import { connect } from 'react-redux';
+
+// import Action
+import itemsAction from '../redux/actions/items';
 
 // Importing Component
 import CardItem from './CardItem';
 
 class Item extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: [],
-    };
-  }
-
   async componentDidMount() {
-    await this.getDataUpdated();
-  }
-
-  getDataUpdated = async () => {
-    const { data } = await axios.get('http://localhost:8080/items');
-    this.setState({ data: data.dataResult });
+    this.props.getItems();
   }
 
   render() {
-    const { data } = this.state;
+    const {
+      isLoading, data, isError, alertMsg,
+    } = this.props.items;
     return (
       <>
         <Container>
@@ -34,7 +28,7 @@ class Item extends React.Component {
             <span className="text-muted">Find clothes that are trending recently</span>
           </div>
           <Row>
-            {Object.keys(data).length && data.map((item) => (
+            {!isLoading && !isError && data.length !== 0 && data.map((item) => (
               <Col md={3} xs={6}>
                 <CardItem
                   name={item.name}
@@ -43,6 +37,12 @@ class Item extends React.Component {
                 />
               </Col>
             ))}
+            {isLoading && !isError && (
+              <div>Loading</div>
+            )}
+            {isError && alertMsg !== '' && (
+              <div>{alertMsg}</div>
+            )}
           </Row>
         </Container>
       </>
@@ -50,4 +50,12 @@ class Item extends React.Component {
   }
 }
 
-export default Item;
+const mapStateToProps = (state) => ({
+  items: state.items,
+});
+
+const mapDispatchToProps = {
+  getItems: itemsAction.getData,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Item);
