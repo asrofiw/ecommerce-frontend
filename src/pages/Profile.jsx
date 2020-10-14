@@ -8,6 +8,7 @@ import {
   Modal, ModalHeader, ModalBody, ModalFooter,
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import qs from 'querystring'
 
 // Import Action
 import profileAction from '../redux/actions/profile';
@@ -32,8 +33,8 @@ const Profile = () => {
   const profile = useSelector((state) => state.profile);
   const { dataProfile } = profile
 
-  useEffect(async ()=>{
-    await dispatch(profileAction.getProfile(token))
+  useEffect(()=>{
+    dispatch(profileAction.getProfile(token))
   },[])
   
   useEffect(()=>{
@@ -73,20 +74,24 @@ const Profile = () => {
     if (dataUpdateProfile.email === dataProfile.email) {
       delete dataUpdateProfile.email
     }
-    dispatch(profileAction.updateProfile(token, dataUpdateProfile))
+    dispatch(profileAction.updateProfile(token, qs.stringify(dataUpdateProfile)))
   }
 
-  const closeMsgUpdate = async () => {
+  const closeMsgUpdate = () => {
     dispatch(profileAction.clearMessageStatus());
+    setImage(profile.dataProfile.image)
     if (profile.isUpdate) {
-      await dispatch(profileAction.getProfile(token))
+      dispatch(profileAction.getProfile(token))
     }
   };
 
-  const uploadFile = async (e) => {
+  const uploadFile =  (e) => {
     const form = new FormData()
     form.append('picture', e.target.files[0])
-    await dispatch(profileAction.updateProfile(token, form))
+    dispatch(profileAction.updateProfile(token, form))
+    if (profile.isSuccess) {
+      dispatch(profileAction.getProfile(token))
+    }
   }
 
   const shippingAddress = useSelector((state) => state.shippingAddress);

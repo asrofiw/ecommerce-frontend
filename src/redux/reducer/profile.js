@@ -55,7 +55,7 @@ export default (state = initialStateProfile, action) => {
         isLoading: false,
         isErrorUpdate: true,
         statusMsg: 'Failed',
-        updateMsg: action.payload.response.data.message,
+        updateMsg: 'Failed to update data',
       };
     }
     case 'UPDATE_PROFILE_FULFILLED': {
@@ -63,6 +63,7 @@ export default (state = initialStateProfile, action) => {
         ...state,
         isLoading: false,
         isUpdate: true,
+        isSucces: true,
         statusMsg: 'Succes',
         updateMsg: action.payload.data.message,
       };

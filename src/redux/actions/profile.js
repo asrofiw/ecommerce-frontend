@@ -1,5 +1,4 @@
 import http from '../../helpers/http';
-import qs from 'querystring'
 
 export default {
   getProfile: (token) => ({
@@ -8,7 +7,7 @@ export default {
   }),
   updateProfile: (token, data) => ({
     type: 'UPDATE_PROFILE',
-    payload: http(token).patch('private/customer/profile', qs.stringify(data))
+    payload: http(token).patch('private/customer/profile', data)
   }),
   clearMessageStatus: () => ({
     type: 'CLEAR_MESSAGE',
