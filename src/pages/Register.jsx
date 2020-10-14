@@ -2,21 +2,66 @@ import React from 'react';
 import {
   Container, Row, Col, Button,
   Form, Input,
+  Modal, ModalBody, ModalFooter
 } from 'reactstrap';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+
+// Importing Action
+import registerAction from '../redux/actions/register';
 
 // Importing image
 import logo from '../assets/images/logo-44px.svg';
 
 class Register extends React.Component {
-  
+  state = {
+    customer: true,
+    seller: false,
+    name: '',
+    email: '',
+    password: ''
+  }
+
   changeInput = (e) => {
     this.setState({
       [e.target.name]: e.target.value,
     });
   }
+
+  createRegister = (e) => {
+    e.preventDefault();
+    const { name, email, password } = this.state
+    const data = {
+      name,
+      email,
+      password,
+    }
+    this.props.postRegister(data);
+  }
+
+  buttonToClear = () => {
+    this.props.clearMsg();
+    if (this.props.register.isSuccess) {
+      this.props.history.push('/login')
+    }
+  }
+
+  onCustomer = () => {
+    this.setState({
+      customer: true,
+      seller: false,
+    })
+  }
+
+  onSeller = () => {
+    this.setState({
+      customer: false,
+      seller: true,
+    })
+  }
   
   render() {
+    const { isSuccess, isError, alertMsg, statusMsg } = this.props.register
     return (
       <>
         <Container>
@@ -29,11 +74,12 @@ class Register extends React.Component {
                 <span className="h6 font-weight-bold">Please login with your account</span>
               </div>
               <div className="mb-3">
-                <Button outline color="primary" className="bttn border-right-0 rounded-0">Customer</Button>
-                <Button outline color="primary" className="bttn border-left-0 rounded-0">Seller</Button>
+                <Button onClick={this.onCustomer} outline color="primary" className="bttn border-right-0 rounded-0">Customer</Button>
+                <Button onClick={this.onSeller} outline color="primary" className="bttn border-left-0 rounded-0">Seller</Button>
               </div>
               <Row className="align-items-center justify-content-center">
-                <Form>
+                {this.state.seller && (
+                  <Form>
                   <Col className="mb-3">
                     <Input className="form-input mb-2" type="text" onChange={this.changeInput} name="name" placeholder="Name" />
                     <Input className="form-input mb-2" type="email" onChange={this.changeInput} name="email" placeholder="Email" />
@@ -47,6 +93,21 @@ class Register extends React.Component {
                     </Button>
                   </div>
                 </Form>
+                )}
+                {this.state.customer && (
+                  <Form onSubmit={this.createRegister}>
+                  <Col className="mb-3">
+                    <Input className="form-input mb-2" type="text" onChange={this.changeInput} name="name" placeholder="Name" value={this.state.name} />
+                    <Input className="form-input mb-2" type="email" onChange={this.changeInput} name="email" placeholder="Email" value={this.state.email} />
+                    <Input className="form-input mb-2" type="password" onChange={this.changeInput} name="password" placeholder="Password" value={this.state.password} />
+                  </Col>
+                  <div>
+                    <Button color="primary" className="bg-color form-input rounded-pill" type="submit">
+                      Register
+                    </Button>
+                  </div>
+                </Form>
+                )}
               </Row>
               <span>
                 Already have an account?
@@ -55,9 +116,27 @@ class Register extends React.Component {
             </Col>
           </Row>
         </Container>
+        <Modal isOpen={isSuccess || isError}>
+          <ModalBody>
+            <div>{alertMsg}</div>
+            <div>{statusMsg}</div>
+          </ModalBody>
+          <ModalFooter>
+            <Button color="primary" className="bg-color" onClick={this.buttonToClear}>OK</Button>
+          </ModalFooter>
+        </Modal>
       </>
     );
   }
 }
 
-export default Register;
+const mapStateToProps = (state) => ({
+  register: state.register,
+});
+
+const mapDispatchToProps = {
+  postRegister: registerAction.createUserCustomer,
+  clearMsg: registerAction.clearMessageStatus,
+};
+
+export default connect (mapStateToProps, mapDispatchToProps)(Register);

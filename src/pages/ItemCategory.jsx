@@ -1,6 +1,6 @@
 /* eslint-disable linebreak-style */
-/* eslint-disable react/prop-types */
 /* eslint-disable react/destructuring-assignment */
+/* eslint-disable react/prop-types */
 import React from 'react';
 import { Container, Row, Col } from 'reactstrap';
 import { connect } from 'react-redux';
@@ -10,9 +10,10 @@ import { Link } from 'react-router-dom';
 import itemsAction from '../redux/actions/items';
 
 // Importing Component
-import CardItem from './CardItem';
+import NavBar from '../component/NavBar';
+import CardItem from '../component/CardItem';
 
-class Item extends React.Component {
+class ItemCategory extends React.Component {
   async componentDidMount() {
     this.props.getItems();
   }
@@ -23,6 +24,7 @@ class Item extends React.Component {
     } = this.props.items;
     return (
       <>
+        <NavBar />
         <Container>
           <div className="mb-4">
             <h2 className="font-weight-bold">Popular</h2>
@@ -61,4 +63,4 @@ const mapDispatchToProps = {
   getItems: itemsAction.getData,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Item);
+export default connect(mapStateToProps, mapDispatchToProps)(ItemCategory);

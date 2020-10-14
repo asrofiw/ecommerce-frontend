@@ -8,7 +8,11 @@ export default {
     payload: axios.get('http://localhost:8080/public/items?limit=12'),
   }),
   getDataNewest: () => ({
-    type: 'GET_DATA',
+    type: 'GET_DATA_NEWEST',
     payload: axios.get('http://localhost:8080/public/items?limit=12&sort[update_at]=desc'),
+  }),
+  getDataDetail: (id) => ({
+    type: 'GET_DATA_DETAIL',
+    payload: axios.get(`http://localhost:8080/public/items/${id}`),
   }),
 };

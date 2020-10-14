@@ -10,13 +10,12 @@ import product from '../assets/images/product.jpg';
 import rating from '../assets/images/star-activated.svg';
 
 const CardItem = (props) => (
-  <Card className="mt-3 border">
+  <Card className="mt-3 border shadow">
     <CardImg className="img mb-1" top src={product} alt={props.name} />
     <CardBody>
       <CardTitle className="title font-weight-bold mb-4">{props.name}</CardTitle>
       <CardText className="price font-weight-bold mb-1">
-        Rp
-        {props.price}
+        {new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(props.price)}
       </CardText>
       <CardText className="sub-category text-muted mb-1">{props.sub_category}</CardText>
       <CardText>

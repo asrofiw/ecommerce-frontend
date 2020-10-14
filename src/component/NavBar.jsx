@@ -62,9 +62,11 @@ class NavBar extends React.Component {
                 </Button>
               </NavItem>
               <NavItem>
-                <Button className="bg-transparent border-0 p-0 mr-5">
-                  <img src={cart} className="" alt="cart" />
-                </Button>
+                <Link to="/cart">
+                  <Button className="bg-transparent border-0 p-0 mr-5">
+                    <img src={cart} className="" alt="cart" />
+                  </Button>
+                </Link>
               </NavItem>
               <NavItem>
                 <Button className="bg-transparent border-0 p-0 mr-5">
@@ -77,7 +79,7 @@ class NavBar extends React.Component {
                 </Button>
               </NavItem>
               <NavItem>
-                <Link to="/admin">
+                <Link to="/profile">
                   <Button className="profile bg-transparent border-0 p-0 mr-3">
                     <img src={profile} className="img-profile rounded-circle" alt="profile" />
                   </Button>
